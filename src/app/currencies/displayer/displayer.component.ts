@@ -21,12 +21,12 @@ export class DisplayerComponent implements OnInit, AfterContentInit {
   gridByBreakpoint = {
     xl: 4,
     lg: 4,
-    md: 3,
+    md: 2,
     sm: 2,
     xs: 1
   };
 
-  pageSizeOptions = [12, 24, 36];
+  pageSizeOptions = [8, 10, 20, 40];
   currencyDB: Country[] = [];
   currencyList = [];
   page = 0;
