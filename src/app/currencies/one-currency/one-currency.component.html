@@ -1,3 +1,22 @@
-<p>
-  <img [src]="dd.url">
-</p>
+<mat-grid-tile-header>
+  Titre
+</mat-grid-tile-header>
+
+<mat-list>
+  <mat-list-item>
+    <p>{{ currency.name }}</p>
+  </mat-list-item>
+
+  <mat-divider></mat-divider>
+  <mat-list-item>Item 2</mat-list-item>
+  <mat-divider></mat-divider>
+  <mat-list-item>Item 2</mat-list-item>
+
+</mat-list>
+
+<mat-grid-tile-footer>
+  <button mat-raised-button color="accent">
+    Détail
+    <i class="material-icons">remove_red_eye</i>
+  </button>
+</mat-grid-tile-footer>
