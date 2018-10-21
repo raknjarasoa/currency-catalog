@@ -8,7 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class OneCurrencyComponent implements OnInit {
 
-  @Input() dd: any;
+  @Input() currency: any;
 
   constructor() { }
 

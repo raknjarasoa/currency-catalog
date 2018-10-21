@@ -5,8 +5,6 @@
   <span class="title">Currency catalog</span>
 </mat-toolbar>
 
-<app-displayer></app-displayer>
-
 <mat-card>
   <mat-form-field class="example-form-field">
     <mat-select [(value)]="selected">
@@ -23,26 +21,6 @@
   </mat-form-field>
 </mat-card>
 
-<mat-card>
-  <mat-card-content>
-
-    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-
-    <h2>Material Button</h2>
-
-    <mat-list>
-      <mat-list-item>Item 1</mat-list-item>
-      <mat-divider></mat-divider>
-      <mat-list-item>Item 2</mat-list-item>
-      <mat-divider></mat-divider>
-      <mat-list-item>Item 3</mat-list-item>
-    </mat-list>
-
-    <button mat-raised-button color="accent">
-      Détail
-      <i class="material-icons">remove_red_eye</i>
-    </button>
-  </mat-card-content>
-</mat-card>
+<app-displayer></app-displayer>
 
 <router-outlet></router-outlet>

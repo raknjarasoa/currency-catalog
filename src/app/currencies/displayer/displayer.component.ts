@@ -16,18 +16,19 @@ export class DisplayerComponent implements OnInit, AfterContentInit {
 
   @ViewChild('grid') grid: MatGridList;
 
+  isLoading: boolean;
+
   gridByBreakpoint = {
     xl: 4,
     lg: 4,
-    md: 4,
+    md: 3,
     sm: 2,
     xs: 1
   };
 
-  pageSizeOptions = [5, 10, 20];
-
-  data = [];
-  data2: Country[] = [];
+  pageSizeOptions = [12, 24, 36];
+  currencyDB: Country[] = [];
+  currencyList = [];
   page = 0;
   size = 0;
 
@@ -36,15 +37,17 @@ export class DisplayerComponent implements OnInit, AfterContentInit {
     private observableMedia: ObservableMedia) { }
 
   ngOnInit() {
+    this.isLoading = true;
     this.size = this.pageSizeOptions[0];
     this.currenciesService.getAllCountry()
-      .subscribe(data2 => {
-        console.log(data2)
-        this.data = data2;
-        this.data2 = data2
+      .subscribe(resp => {
+        this.currencyDB = resp;
+
+        this.getPaginatedData({
+          pageIndex: this.page,
+          pageSize: this.size
+        });
       });
-    // TODO
-    // this.getData({pageIndex: this.page, pageSize: this.size});
   }
 
   ngAfterContentInit() {
@@ -54,12 +57,14 @@ export class DisplayerComponent implements OnInit, AfterContentInit {
       });
   }
 
-  getData(obj) {
+  getPaginatedData(obj) {
+    this.isLoading = true;
+
     let index = 0;
     let startingIndex = obj.pageIndex * obj.pageSize;
     let endingIndex = startingIndex + obj.pageSize;
-
-    this.data = this.data2
+    debugger
+    this.currencyList = this.currencyDB
       .filter(() => {
         index++;
         return (
@@ -67,5 +72,7 @@ export class DisplayerComponent implements OnInit, AfterContentInit {
           index <= endingIndex
         ) ? true : false;
       });
+
+    this.isLoading = false;
   }
 }
