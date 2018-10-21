@@ -11,12 +11,12 @@ export class ApiService {
   constructor() { }
 
   logInfo(log) {
-    console.log(`${log}`);
+    console.log(`LOGGER: ${log}`);
   }
 
-  handleError<T> (operation = 'operation', result?: T) {
+  handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      console.log(`${operation} FAILED: ${error.message}`);
+      console.log(`FAILED ${operation}: ${error.message}`);
       return of(result as T);
     };
   }

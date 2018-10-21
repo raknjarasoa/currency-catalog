@@ -28,11 +28,8 @@ export class CurrenciesService {
   getAllCountry(): Observable<Country[]> {
     return this.http.get<Country[]>(API_ENDPOINT, httpOptions)
       .pipe(
-        map(res => {
-          debugger
-          return res['payload'];
-        }),
-        tap(TOTOOs => this.apiService.logInfo(TOTOOs)),
+        map(resp => resp),
+        tap(_ => console.log(`Load successful!`)),
         catchError(this.apiService.handleError('getAllCountry', []))
       );
   }
