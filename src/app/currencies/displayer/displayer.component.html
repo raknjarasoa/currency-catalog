@@ -1,3 +1,17 @@
-<p>
-  displayer works!
-</p>
+<mat-divider></mat-divider>
+
+<mat-card>
+  <mat-grid-list #grid rowHeight="2:1">
+    <mat-grid-tile *ngFor="let image of data; let idx = index">
+      <p>NJARA {{ idx }}</p>
+      <app-one-currency [dd]=image></app-one-currency>
+    </mat-grid-tile>
+  </mat-grid-list>
+</mat-card>
+
+<mat-paginator  [length]="data2.length"
+                [pageSize]="size"
+                [pageIndex]="page"
+                [pageSizeOptions]="pageSizeOptions"
+                (page)="getData($event)">
+</mat-paginator>
