@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+// Afficheur d'un currency et qui compose le displayer
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-one-currency',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./one-currency.component.scss']
 })
 export class OneCurrencyComponent implements OnInit {
+
+  @Input() dd: any;
 
   constructor() { }
 
