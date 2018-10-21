@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppMaterialModule } from '../app-material.module';
+import { ApiModule } from '../api/api.module';
 
 import { DisplayerComponent } from './displayer/displayer.component';
 import { OneCurrencyComponent } from './one-currency/one-currency.component';
@@ -11,7 +12,9 @@ import { OneCurrencyComponent } from './one-currency/one-currency.component';
   imports: [
     CommonModule,
     HttpClientModule,
-    AppMaterialModule
+    
+    AppMaterialModule,
+    ApiModule
   ],
   declarations: [
     DisplayerComponent,
