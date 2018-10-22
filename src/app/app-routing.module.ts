@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { CurrencyComponent } from './currencies/currency.component';
+// import { CurrencyComponent } from './currencies/currency.component';
 
 const routes: Routes = [
     /*{

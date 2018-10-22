@@ -7,6 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
+  selectedRegion: string;
+  searchTerm: string;
   regionList = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
 
 }
