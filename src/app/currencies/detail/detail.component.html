@@ -1,3 +1,62 @@
-<p>
-  detail works!
-</p>
+<div *ngIf="country">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <button mat-raised-button (click)="goBack()">Go back</button>
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="detail__content">
+        <div class="detail__img-wrapper">
+          <img mat-card-image [src]="country.flag" alt="Drapeau">
+        </div>
+        <div class="detail__info">
+          <mat-list>
+            <h3 mat-subheader>Currency</h3>
+            <mat-list-item>
+              <p>
+                <strong>Symbol:</strong>
+                <span>{{ country.currencies[0].code }}</span>
+                <strong class="detail__symbol">({{ country.currencies[0].symbol }})</strong>
+              </p>
+            </mat-list-item>
+            <mat-list-item>
+              <p>
+                <strong>Currency:</strong>{{ country.currencies[0].name }}
+              </p>
+            </mat-list-item>
+            <mat-list-item>
+              <p>
+                <strong>Country Code (Alpha 2):</strong>{{ country.alpha2Code }}
+              </p>
+            </mat-list-item>
+            <mat-list-item>
+              <p>
+                <strong>Country Code (Alpha 3):</strong>{{ country.alpha3Code }}
+              </p>
+            </mat-list-item>
+
+            <h3 mat-subheader>Country</h3>
+            <mat-list-item>
+              <p>
+                <strong>Name:</strong>{{ country.name }}
+              </p>
+            </mat-list-item>
+            <mat-list-item>
+              <p>
+                <strong>Capitale:</strong>{{ country.capital }}
+              </p>
+            </mat-list-item>
+            <mat-list-item>
+              <p>
+                <strong>Region:</strong>{{ country.region }}
+              </p>
+            </mat-list-item>
+          </mat-list>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+</div>

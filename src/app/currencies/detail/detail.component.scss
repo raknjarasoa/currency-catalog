@@ -1,0 +1,22 @@
+.detail {
+  &__content {
+    img {
+      width: 200px;
+      height: auto;
+    }
+  }
+  &__img-wrapper {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+  }
+  &__info {
+    strong {
+      padding-right: 10px;
+    }
+  }
+  &__symbol {
+    padding-left: 10px;
+  }
+}
