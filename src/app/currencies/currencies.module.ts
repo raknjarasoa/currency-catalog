@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppMaterialModule } from '../app-material.module';
+import { AppRoutingModule } from '../app-routing.module';
 import { ApiModule } from '../api/api.module';
 
 import { DisplayerComponent } from './displayer/displayer.component';
@@ -18,6 +19,7 @@ import { DetailComponent } from './detail/detail.component';
     HttpClientModule,
     
     AppMaterialModule,
+    AppRoutingModule,
     ApiModule
   ],
   declarations: [
@@ -27,7 +29,7 @@ import { DetailComponent } from './detail/detail.component';
     DetailComponent
   ],
   exports: [
-    CurrencyComponent
+
   ]
 })
 export class CurrenciesModule { }

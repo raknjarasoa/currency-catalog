@@ -11,7 +11,7 @@ const routes: Routes = [
 
     },
     {
-        path: 'detail',
+        path: 'detail/:alphaCode',
         component: DetailComponent
     },
     {
