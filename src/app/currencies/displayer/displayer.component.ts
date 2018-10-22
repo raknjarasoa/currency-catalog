@@ -49,7 +49,8 @@ export class DisplayerComponent implements OnInit, AfterContentInit, OnChanges {
 
   ngOnInit() {
     this.isLoading = true;
-    this.currenciesService.getAllCountry()
+
+    this.currenciesService.currencies
       .subscribe(resp => {
         this.CURRENCY_CACHES = resp;
 
