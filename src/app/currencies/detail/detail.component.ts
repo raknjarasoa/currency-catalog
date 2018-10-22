@@ -24,7 +24,7 @@ export class DetailComponent implements OnInit {
   
     this.currenciesService.currencies
       .subscribe(resp => {
-        this.country = resp.find(currency => currency.alpha3Code === 'AFG');
+        this.country = resp.find(currency => currency.alpha3Code === alphaCode);
       });
   }
 
