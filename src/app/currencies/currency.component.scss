@@ -1,6 +1,8 @@
 .filter {
   &__wrapper {
+    align-items: center;
     display: flex;
+    flex-direction: row;
     justify-content: center;
   }
   
@@ -12,7 +14,14 @@
 }
 
 @media only screen and (max-width: 600px) {
-  .filter__form {
-    padding: 0;
-  }
+  .filter {
+    &__wrapper {
+      flex-direction: column;
+    }
+    
+    &__form {
+      padding: 0;
+    }
+    
+  }  
 }
