@@ -1,0 +1,18 @@
+.filter {
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+  }
+  
+  &__form {
+    padding: 0 20px 0 0;
+    width: 200px;
+  }
+  
+}
+
+@media only screen and (max-width: 600px) {
+  .filter__form {
+    padding: 0;
+  }
+}

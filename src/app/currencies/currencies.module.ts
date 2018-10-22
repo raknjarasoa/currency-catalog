@@ -8,6 +8,8 @@ import { ApiModule } from '../api/api.module';
 
 import { DisplayerComponent } from './displayer/displayer.component';
 import { OneCurrencyComponent } from './one-currency/one-currency.component';
+import { CurrencyComponent } from './currency.component';
+import { DetailComponent } from './detail/detail.component';
 
 @NgModule({
   imports: [
@@ -20,10 +22,12 @@ import { OneCurrencyComponent } from './one-currency/one-currency.component';
   ],
   declarations: [
     DisplayerComponent,
-    OneCurrencyComponent
+    OneCurrencyComponent,
+    CurrencyComponent,
+    DetailComponent
   ],
   exports: [
-    DisplayerComponent
+    CurrencyComponent
   ]
 })
 export class CurrenciesModule { }

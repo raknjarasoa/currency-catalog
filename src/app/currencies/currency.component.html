@@ -1,0 +1,16 @@
+<div class="filter__wrapper">
+  <mat-form-field class="filter__form">
+    <mat-select [(value)]="selectedRegion">
+      <mat-option>None</mat-option>
+      <mat-option value="{{region}}" *ngFor="let region of regionList">{{region}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="filter__form">
+    <input matInput type="text" placeholder="Search" [(ngModel)]="searchTerm">
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+</div>
+
+<app-displayer [searchTerm]="searchTerm" [selectedRegion]="selectedRegion">
+</app-displayer>
