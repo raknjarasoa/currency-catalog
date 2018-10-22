@@ -1,5 +1,6 @@
 // Afficheur des currencies
-import { AfterContentInit, OnInit, Component, ViewChild } from '@angular/core';
+import { AfterContentInit, OnInit, Component, ViewChild, OnChanges, SimpleChanges, Input } from '@angular/core';
+import { MatPaginator } from "@angular/material";
 
 import { MediaChange, ObservableMedia } from '@angular/flex-layout';
 import { MatGridList } from '@angular/material';
@@ -7,16 +8,25 @@ import { MatGridList } from '@angular/material';
 import { Country } from '../models';
 import { CurrenciesService } from '../services';
 
+export interface PaginatedParams {
+  selectedRegion?: string;
+  searchTerm?: string;
+  pageIndex?: number;
+  pageSize?: number;
+}
+
 @Component({
   selector: 'app-displayer',
   templateUrl: './displayer.component.html',
   styleUrls: ['./displayer.component.scss']
 })
-export class DisplayerComponent implements OnInit, AfterContentInit {
+export class DisplayerComponent implements OnInit, AfterContentInit, OnChanges {
 
   @ViewChild('grid') grid: MatGridList;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  isLoading: boolean;
+  @Input() searchTerm: string;
+  @Input() selectedRegion: string;
 
   gridByBreakpoint = {
     xl: 4,
@@ -27,9 +37,10 @@ export class DisplayerComponent implements OnInit, AfterContentInit {
   };
 
   pageSizeOptions = [8, 10, 20, 40];
+  CURRENCY_CACHES: Country[] = [];
   currencyDB: Country[] = [];
   currencyList = [];
-  page = 0;
+  isLoading: boolean;
   size = 0;
 
   constructor(
@@ -38,14 +49,13 @@ export class DisplayerComponent implements OnInit, AfterContentInit {
 
   ngOnInit() {
     this.isLoading = true;
-    this.size = this.pageSizeOptions[0];
     this.currenciesService.getAllCountry()
       .subscribe(resp => {
-        this.currencyDB = resp;
+        this.CURRENCY_CACHES = resp;
 
         this.getPaginatedData({
-          pageIndex: this.page,
-          pageSize: this.size
+          pageIndex: 0,
+          pageSize: this.pageSizeOptions[0]
         });
       });
   }
@@ -57,13 +67,35 @@ export class DisplayerComponent implements OnInit, AfterContentInit {
       });
   }
 
-  getPaginatedData(obj) {
+  getPaginatedData(params?: PaginatedParams) {
     this.isLoading = true;
 
+    let pageIndex = params.pageIndex || this.paginator.pageIndex;
+    let pageSize = params.pageSize || this.paginator.pageSize;
+    let searchTerm = params.searchTerm || this.searchTerm;
+    let selectedRegion = params.selectedRegion || this.selectedRegion;
+
+    this.currencyDB = [...this.CURRENCY_CACHES];
+
+    if (searchTerm && searchTerm.trim()) {
+      const filter = searchTerm.trim().toLowerCase();
+
+      this.currencyDB = this.currencyDB.filter(country => {
+        return country.name.trim().toLowerCase().search(filter) >= 0 ||
+          country.capital.trim().toLowerCase().search(filter) >= 0;
+      });
+    }
+
+    if (selectedRegion && selectedRegion.trim()) {
+      const region = selectedRegion.trim().toLowerCase();
+
+      this.currencyDB = this.currencyDB.filter(r => r.region.trim().toLowerCase().search(region) >= 0);
+    }
+
     let index = 0;
-    let startingIndex = obj.pageIndex * obj.pageSize;
-    let endingIndex = startingIndex + obj.pageSize;
-    debugger
+    let startingIndex = pageIndex * pageSize;
+    let endingIndex = startingIndex + pageSize;
+
     this.currencyList = this.currencyDB
       .filter(() => {
         index++;
@@ -74,5 +106,20 @@ export class DisplayerComponent implements OnInit, AfterContentInit {
       });
 
     this.isLoading = false;
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    for (let propName in changes) {
+      const change = changes[propName];
+
+      if (!change.firstChange) {
+        const val = change.currentValue;
+
+        this.getPaginatedData({
+          [propName]: val
+        });
+      }
+    }
+
   }
 }

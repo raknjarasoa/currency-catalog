@@ -1,17 +1,28 @@
 <mat-grid-tile-header>
-    <strong>{{ currency.name }}</strong><i class="material-icons">info</i>
+  <p>
+    <strong>{{ currency.name | uppercase }}</strong>
+    <span class="currency__symbol">({{ currency.region }})</span>
+  </p>
+  <i class="material-icons">info</i>
 </mat-grid-tile-header>
 
 <mat-list>
   <mat-list-item>
-    <strong>{{ currency.name }}</strong>
+    <strong>Capitale: </strong>
+    <span>{{ currency.capital }}</span>
   </mat-list-item>
-
   <mat-divider></mat-divider>
-  <mat-list-item>Item 2</mat-list-item>
+  <mat-list-item>
+    <strong>Monnaie: </strong>
+    <span>{{ currency.currencies[0].name }}</span>
+  </mat-list-item>
   <mat-divider></mat-divider>
-  <mat-list-item>Item 2</mat-list-item>
-
+  <mat-list-item>
+    <strong>Symbol: </strong>
+    <span>{{ currency.currencies[0].code }}</span>
+    <strong class="currency__symbol">({{ currency.currencies[0].symbol }})</strong>
+  </mat-list-item>
+  <mat-divider></mat-divider>
 </mat-list>
 
 <mat-grid-tile-footer>
