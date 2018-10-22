@@ -9,7 +9,7 @@ import { Country } from '../models';
 import { CurrenciesService } from '../services';
 
 export interface PaginatedParams {
-  selectedRegion?: string;
+  selectedFiltre?: string;
   searchTerm?: string;
   pageIndex?: number;
   pageSize?: number;
@@ -26,7 +26,7 @@ export class DisplayerComponent implements OnInit, AfterContentInit, OnChanges {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   @Input() searchTerm: string;
-  @Input() selectedRegion: string;
+  @Input() selectedFiltre: string;
 
   gridByBreakpoint = {
     xl: 4,
@@ -67,32 +67,55 @@ export class DisplayerComponent implements OnInit, AfterContentInit, OnChanges {
       });
   }
 
+  getFilters(sTerm: string, sFilter: string) {
+    let filtreValue = '';
+    let searchTerm = '';
+
+    if (sFilter && sFilter.trim()) {
+      filtreValue = sFilter.trim();
+    }
+
+    if (sTerm && sTerm.trim()) {
+      searchTerm = sTerm.trim().toLowerCase();
+    }
+
+    return {
+      searchTerm,
+      filtreValue
+    }
+  }
+
   getPaginatedData(params?: PaginatedParams) {
     this.isLoading = true;
 
-    let pageIndex = params.pageIndex || this.paginator.pageIndex;
-    let pageSize = params.pageSize || this.paginator.pageSize;
-    let searchTerm = params.searchTerm || this.searchTerm;
-    let selectedRegion = params.selectedRegion || this.selectedRegion;
+    let sTerm = params.searchTerm || this.searchTerm;
+    let sFiltre = params.selectedFiltre || this.selectedFiltre;
 
     this.currencyDB = [...this.CURRENCY_CACHES];
 
-    if (searchTerm && searchTerm.trim()) {
-      const filter = searchTerm.trim().toLowerCase();
+    const { filtreValue, searchTerm } = this.getFilters(sTerm, sFiltre);
 
-      this.currencyDB = this.currencyDB.filter(country => {
-        return country.name.trim().toLowerCase().search(filter) >= 0 ||
-          country.capital.trim().toLowerCase().search(filter) >= 0;
-      });
-    }
-
-    if (selectedRegion && selectedRegion.trim()) {
-      const region = selectedRegion.trim().toLowerCase();
-
-      this.currencyDB = this.currencyDB.filter(r => r.region.trim().toLowerCase().search(region) >= 0);
-    }
+    this.currencyDB = this.currencyDB.filter(country => {
+      if (!filtreValue && searchTerm) {
+        return  country.name.toLowerCase().search(searchTerm) >= 0 ||
+                country.capital.toLowerCase().search(searchTerm) >= 0 ||
+                country.currencies[0].name.toLowerCase().search(searchTerm) >= 0 ||
+                (country.currencies[0] &&
+                  country.currencies[0].code &&
+                  country.currencies[0].code.toLowerCase().search(searchTerm) >= 0);
+      }
+      if (filtreValue && searchTerm) {
+        return (country.currencies[0] &&
+                country.currencies[0][filtreValue] &&
+                country.currencies[0][filtreValue].toLowerCase().search(searchTerm) >= 0);
+      }
+      return true;
+    });    
 
     let index = 0;
+    let pageIndex = params.pageIndex;
+    let pageSize = params.pageSize || this.paginator.pageSize;
+    
     let startingIndex = pageIndex * pageSize;
     let endingIndex = startingIndex + pageSize;
 
@@ -116,7 +139,8 @@ export class DisplayerComponent implements OnInit, AfterContentInit, OnChanges {
         const val = change.currentValue;
 
         this.getPaginatedData({
-          [propName]: val
+          [propName]: val,
+          pageIndex: 0
         });
       }
     }

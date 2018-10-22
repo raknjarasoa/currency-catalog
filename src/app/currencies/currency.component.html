@@ -1,8 +1,9 @@
 <div class="filter__wrapper">
   <mat-form-field class="filter__form">
-    <mat-select [(value)]="selectedRegion">
-      <mat-option>None</mat-option>
-      <mat-option value="{{region}}" *ngFor="let region of regionList">{{region}}</mat-option>
+    <mat-select [(value)]="selectedFiltre">
+      <mat-option value="" selected>ALL</mat-option>
+      <mat-option value="name">Name</mat-option>
+      <mat-option value="code">Code</mat-option>
     </mat-select>
   </mat-form-field>
 
@@ -12,5 +13,7 @@
   </mat-form-field>
 </div>
 
-<app-displayer [searchTerm]="searchTerm" [selectedRegion]="selectedRegion">
+<app-displayer
+  [searchTerm]="searchTerm"
+  [selectedFiltre]="selectedFiltre">
 </app-displayer>

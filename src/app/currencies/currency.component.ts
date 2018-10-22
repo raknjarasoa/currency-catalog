@@ -6,7 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./currency.component.scss']
 })
 export class CurrencyComponent {
-  selectedRegion: string;
+  selectedFiltre: string = '';
   searchTerm: string;
-  regionList = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
 }
